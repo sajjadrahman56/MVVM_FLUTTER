@@ -14,7 +14,9 @@ import 'package:flutter/material.dart';
    @override
    Widget build(BuildContext context) {
      return Container(
-
+        child: Center(
+          child: Text(" i test class "),
+        ),
      );
    }
  }

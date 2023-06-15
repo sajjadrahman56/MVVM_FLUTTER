@@ -1,5 +1,7 @@
 
 import 'package:demo_01/presentation/color_manager.dart';
+import 'package:demo_01/presentation/fonts_manager.dart';
+import 'package:demo_01/presentation/style_manager.dart';
 import 'package:demo_01/presentation/values_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,9 @@ ThemeData getApplicationTheme(){
     primaryColorLight: ColorManager.primaryOpacity70,
     primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.grey1,
+    // ripple color
+
+      splashColor: ColorManager.primaryOpacity70,
 
     //accentColor: ColorManager.darkGray, // depricated
     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorManager.grey),
@@ -22,13 +27,27 @@ ThemeData getApplicationTheme(){
       color: ColorManager.white,
       shadowColor: ColorManager.grey,
       elevation: AppSize.s12,
-    )
+    ),
 
     // app bar theme
 
+    appBarTheme: AppBarTheme(centerTitle: true,
+    color: ColorManager.primary,
+    elevation: AppSize.s4, shadowColor: ColorManager.primaryOpacity70,
+      titleTextStyle: getRegularTextStyle(color: ColorManager.white,
+      fontSize: FontSize.s16)
+  ),
     // button theme
 
-    // Text theme
+    buttonTheme: ButtonThemeData(
+      shape: StadiumBorder(),
+      disabledColor: ColorManager.grey,
+      buttonColor: ColorManager.primary,
+      splashColor: ColorManager.primaryOpacity70,
+  )
+
+
+    // Text themeC
 
     // input decoration theme ( text form field )
   );
