@@ -44,11 +44,33 @@ ThemeData getApplicationTheme(){
       disabledColor: ColorManager.grey,
       buttonColor: ColorManager.primary,
       splashColor: ColorManager.primaryOpacity70,
-  )
+  ),
 
+    // Elevated Button
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        textStyle: getRegularTextStyle(color: ColorManager.white),
+        foregroundColor:ColorManager.primary,
+        shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(AppSize.s12) ),
+      )
+    ),
 
     // Text themeC
+  
+    textTheme: TextTheme(
+        displayMedium: getSemiBoldTextStyle(color: ColorManager.darkGray,fontSize: FontSize.s16),
+        titleSmall: getMedimTextStyle(color: ColorManager.lightGrey, fontSize: FontSize.s14),
+        labelLarge: getRegularTextStyle(color: ColorManager.grey1),
+        bodyMedium: getRegularTextStyle(color: ColorManager.grey)
+    ),
+    // input decoration theme ( text form field )
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: EdgeInsets.all(AppPadding.p8),
 
+      // hint style
+      hintStyle:
+    )
     // input decoration theme ( text form field )
   );
 
