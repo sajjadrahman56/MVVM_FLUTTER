@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_fetch/utils/routes/routes_name.dart';
 import 'package:movie_fetch/view/home_screen.dart';
-import 'package:movie_fetch/view/login_screen.dart';
+import 'package:movie_fetch/view/login_view.dart';
 
 class Routes{
   static Route<dynamic> generateRoute(RouteSettings settings)
@@ -12,7 +12,7 @@ class Routes{
       case RoutesName.home:
         return MaterialPageRoute(builder: (BuildContext context)=> const HomeScreen());
       case RoutesName.login:
-        return MaterialPageRoute(builder: (BuildContext context)=> const LoginScreen());
+        return MaterialPageRoute(builder: (BuildContext context)=> const LoginView());
 
       default:
         return MaterialPageRoute(builder: (_){
