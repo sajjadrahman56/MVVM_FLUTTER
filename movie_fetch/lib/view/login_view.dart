@@ -12,6 +12,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
+  ValueNotifier _obsecurePassword = ValueNotifier<bool>(true);
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -20,6 +21,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
       appBar: AppBar(
         title: Text('Log in'),
@@ -42,21 +44,37 @@ class _LoginViewState extends State<LoginView> {
                   Utils.fieldFocusChange(context,emailFocusNode,passwordFocusNode);
                 },
               ),
-              TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                focusNode: passwordFocusNode,
-                obscuringCharacter: "*",
-                decoration: InputDecoration(
-                    hintText: 'Password',
-                    labelText: 'Password',
-                    prefixIcon: Icon(Icons.password),
-                  suffixIcon: Icon(Icons.visibility_off_outlined)
-                ),
-                onFieldSubmitted: (value){
-                  //Utils.fieldFocusChange(context,emailFocusNode,passwordFocusNode);
-                },
-              )
+              ValueListenableBuilder(
+                  valueListenable: _obsecurePassword,
+                  builder: (context,value,child)
+                  {
+                    return  TextFormField(
+                      controller: _passwordController,
+                      obscureText: _obsecurePassword.value,
+                      focusNode: passwordFocusNode,
+                      obscuringCharacter: "*",
+                      decoration: InputDecoration(
+                          hintText: 'Password',
+                          labelText: 'Password',
+                          prefixIcon: Icon(Icons.password),
+                          suffixIcon: InkWell(
+                              onTap: (){
+                                _obsecurePassword.value = !_obsecurePassword.value;
+                              },
+                              child: Icon(
+                                 _obsecurePassword.value ? Icons.visibility_off_outlined : Icons.visibility
+                              ))
+                      ),
+                      onFieldSubmitted: (value){
+                        //Utils.fieldFocusChange(context,emailFocusNode,passwordFocusNode);
+                      },
+                    );
+                  }
+              ),
+              SizedBox(height: height*.1,)
+
+
+
             ],
           ),
         )
