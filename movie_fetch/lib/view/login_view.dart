@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_fetch/utils/utils.dart';
 
+import '../resources/components/round_button.dart';
 import 'home_screen.dart';
 
 class LoginView extends StatefulWidget {
@@ -71,8 +72,22 @@ class _LoginViewState extends State<LoginView> {
                     );
                   }
               ),
-              SizedBox(height: height*.1,)
+              SizedBox(height: height*.085,),
+              RoundButton(
+                title: 'Log in',
+                onPress: (){
+                if(_emailController.text.isEmpty){
 
+                }
+                else if(_passwordController.text.isEmpty)
+                  {
+
+                  }
+                else if(_passwordController.text.length < 6){
+
+                }
+                },
+              ),
 
 
             ],
