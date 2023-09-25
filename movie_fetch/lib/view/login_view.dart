@@ -21,6 +21,19 @@ class _LoginViewState extends State<LoginView> {
   FocusNode passwordFocusNode = FocusNode();
 
   @override
+  void dispose()
+  {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+
+    _obsecurePassword.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
@@ -32,6 +45,8 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
+
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -77,15 +92,20 @@ class _LoginViewState extends State<LoginView> {
                 title: 'Log in',
                 onPress: (){
                 if(_emailController.text.isEmpty){
-
+                  Utils.flushBarErrorMessage('Please Enter email', context);
                 }
                 else if(_passwordController.text.isEmpty)
                   {
-
+                    Utils.flushBarErrorMessage('Please Enter password', context);
                   }
                 else if(_passwordController.text.length < 6){
+                  Utils.flushBarErrorMessage('Enter 6 digit password', context);
 
                 }
+                else
+                  {
+                    print('Api Hit');
+                  }
                 },
               ),
 
