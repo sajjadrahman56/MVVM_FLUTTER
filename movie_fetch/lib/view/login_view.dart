@@ -29,7 +29,6 @@ class _LoginViewState extends State<LoginView> {
 
     emailFocusNode.dispose();
     passwordFocusNode.dispose();
-
     _obsecurePassword.dispose();
   }
 
@@ -39,78 +38,84 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Log in'),
+        centerTitle: true,
+        leading: Icon(Icons.man,size: 40,),
+
       ),
         body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
 
 
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                focusNode: emailFocusNode,
-                decoration: InputDecoration(
-                  hintText: 'Email',
-                  labelText: 'Email',
-                  prefixIcon: Icon(Icons.alternate_email)
+                TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  focusNode: emailFocusNode,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    labelText: 'Email',
+                    prefixIcon: Icon(Icons.alternate_email)
+                  ),
+                  onFieldSubmitted: (value){
+                    Utils.fieldFocusChange(context,emailFocusNode,passwordFocusNode);
+                  },
                 ),
-                onFieldSubmitted: (value){
-                  Utils.fieldFocusChange(context,emailFocusNode,passwordFocusNode);
-                },
-              ),
-              ValueListenableBuilder(
-                  valueListenable: _obsecurePassword,
-                  builder: (context,value,child)
-                  {
-                    return  TextFormField(
-                      controller: _passwordController,
-                      obscureText: _obsecurePassword.value,
-                      focusNode: passwordFocusNode,
-                      obscuringCharacter: "*",
-                      decoration: InputDecoration(
-                          hintText: 'Password',
-                          labelText: 'Password',
-                          prefixIcon: Icon(Icons.password),
-                          suffixIcon: InkWell(
-                              onTap: (){
-                                _obsecurePassword.value = !_obsecurePassword.value;
-                              },
-                              child: Icon(
-                                 _obsecurePassword.value ? Icons.visibility_off_outlined : Icons.visibility
-                              ))
-                      ),
-                      onFieldSubmitted: (value){
-                        //Utils.fieldFocusChange(context,emailFocusNode,passwordFocusNode);
-                      },
-                    );
+                ValueListenableBuilder(
+                    valueListenable: _obsecurePassword,
+                    builder: (context,value,child)
+                    {
+                      return  TextFormField(
+                        controller: _passwordController,
+                        obscureText: _obsecurePassword.value,
+                        focusNode: passwordFocusNode,
+                        obscuringCharacter: "*",
+                        decoration: InputDecoration(
+                            hintText: 'Password',
+                            labelText: 'Password',
+                            prefixIcon: Icon(Icons.password),
+                            suffixIcon: InkWell(
+                                onTap: (){
+                                  _obsecurePassword.value = !_obsecurePassword.value;
+                                },
+                                child: Icon(
+                                   _obsecurePassword.value ? Icons.visibility_off_outlined : Icons.visibility
+                                ))
+                        ),
+                        onFieldSubmitted: (value){
+                          //Utils.fieldFocusChange(context,emailFocusNode,passwordFocusNode);
+                        },
+                      );
+                    }
+                ),
+                SizedBox(height: height*.085,),
+                RoundButton(
+                  title: 'Log in',
+                  onPress: (){
+                  if(_emailController.text.isEmpty){
+                    Utils.flushBarErrorMessage('Please Enter email', context);
                   }
-              ),
-              SizedBox(height: height*.085,),
-              RoundButton(
-                title: 'Log in',
-                onPress: (){
-                if(_emailController.text.isEmpty){
-                  Utils.flushBarErrorMessage('Please Enter email', context);
-                }
-                else if(_passwordController.text.isEmpty)
-                  {
-                    Utils.flushBarErrorMessage('Please Enter password', context);
-                  }
-                else if(_passwordController.text.length < 6){
-                  Utils.flushBarErrorMessage('Enter 6 digit password', context);
+                  else if(_passwordController.text.isEmpty)
+                    {
+                      Utils.flushBarErrorMessage('Please Enter password', context);
+                    }
+                  else if(_passwordController.text.length < 6){
+                    Utils.flushBarErrorMessage('Enter 6 digit password', context);
 
-                }
-                else
-                  {
-                    print('Api Hit');
                   }
-                },
-              ),
+                  else
+                    {
+                      print('Api Hit');
+                    }
+                  },
+                ),
 
 
-            ],
+              ],
+            ),
           ),
         )
     );
