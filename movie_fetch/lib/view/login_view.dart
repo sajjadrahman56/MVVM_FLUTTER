@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_fetch/utils/utils.dart';
+import 'package:movie_fetch/view_mode/auth_view_model.dart';
 
 import '../resources/components/round_button.dart';
 import 'home_screen.dart';
-
+import 'package:provider/provider.dart';
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -34,6 +35,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
       appBar: AppBar(
@@ -94,6 +96,7 @@ class _LoginViewState extends State<LoginView> {
                 SizedBox(height: height*.085,),
                 RoundButton(
                   title: 'Log in',
+                  loading: authViewModel.loading,
                   onPress: (){
                   if(_emailController.text.isEmpty){
                     Utils.flushBarErrorMessage('Please Enter email', context);
@@ -108,6 +111,11 @@ class _LoginViewState extends State<LoginView> {
                   }
                   else
                     {
+                      Map data = {
+                        'email' : _emailController.text.toString(),
+                        'password': _passwordController.text.toString(),
+                      };
+                      authViewModel.loginApi(data,context);
                       print('Api Hit');
                     }
                   },
